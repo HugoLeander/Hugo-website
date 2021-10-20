@@ -10,11 +10,11 @@ const ADMIN_USERNAME = 'Hugo'
 const ADMIN_PASSWORD = 'abc123'
 
 
-router.get('/login', function (request, response) {
+router.get('/', function (request, response) {
 	response.render('login.hbs')
 })
 
-router.post('/login', function (request, response) {
+router.post('/', function (request, response) {
 
 	const username = request.body.username
 	const password = request.body.password
