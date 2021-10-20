@@ -3,7 +3,7 @@
     <h2>Rating: {{review.rating}}</h2>
     <p>Message: {{review.description}}</p>
 
-    {{#if (!request.session.isLoggedIn)}}
+    {{#if session.isLoggedIn)}}
         <a href="/reviews/{{review.id}}/update">Update</a>
         <a href="/reviews/{{review.id}}/delete">Delete</a>
     {{/if}}

@@ -1,7 +1,7 @@
 {{#if faq}}
     <h1>{{faq.question}}</h1>
     <p>{{faq.answer}}</p>
-    {{#if (!request.session.isLoggedIn)}}
+    {{#if session.isLoggedIn)}}
         <a href="/FAQ/{{faq.id}}/update">Update</a>
         <a href="/FAQ/{{faq.id}}/delete">Delete</a>
     {{/if}}

@@ -1,7 +1,7 @@
 <div class="global">
     <h1> FIFA COINS! </h1>
 
-    {{#if (!request.session.isLoggedIn)}}
+    {{#if session.isLoggedIn)}}}
         <a class="add" href="/products/create">Add new Product</a>
     {{/if}}
 
