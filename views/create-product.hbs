@@ -1,0 +1,23 @@
+<h1>Add new Product</h1>
+
+{{#if errors.length}}
+    <p>Could not create a new product because:</p>
+    <ul>
+        {{#each errors}}
+            <li>{{this}}</li>
+        {{/each}}
+    </ul>
+{{/if}}
+
+<form action="/products/create" method="POST">
+    <div>
+        Name: <input type="text" name="name" value="{{name}}">
+    </div>
+    <div>
+        Description: <br>
+        <textarea name="description">{{description}}</textarea>
+    </div>
+    <div>
+        <input type="submit" value="Create">
+    </div>
+</form>

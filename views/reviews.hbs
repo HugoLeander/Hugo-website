@@ -1,0 +1,27 @@
+<div class="global">
+<h1> Reviews </h1>
+
+<a href="/reviews/create">Add new Review</a>
+
+{{#if hasDatabaseError}}
+	<p>Couldn't fetch the reviews at the moment, try again later.</p>
+{{else}}
+	
+	{{#if reviews.length}}
+		
+		{{#each reviews}}
+			<article>
+				<h2>{{name}}</h2>
+                <p>Rating: {{rating}}</p>
+				<p>Description: {{description}}</p>
+				<a href="/reviews/{{id}}">Read more</a>
+			</article>
+		{{/each}}
+		
+	{{else}}
+		<p>There are no Reviews yet, please write one.</p>
+	{{/if}}
+	
+{{/if}}
+
+</div>

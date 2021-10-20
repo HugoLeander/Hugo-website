@@ -1,0 +1,13 @@
+{{#if product}}
+    <h1>{{product.name}}</h1>
+    <p>{{product.description}}</p>
+
+
+        <a href="/products/{{product.id}}/update">Update</a>
+        <a href="/products/{{product.id}}/delete">Delete</a>
+
+
+{{else}}
+    <h1>Not Found</h1>
+    <p>The product does not exist.</p>
+{{/if}}

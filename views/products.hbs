@@ -1,0 +1,27 @@
+<div class="global">
+    <h1> FIFA COINS! </h1>
+
+
+        <a class="add" href="/products/create">Add new Product</a>
+
+
+    {{#if hasDatabaseError}}
+        <p>Could not find the products right now, please try agian later</p>
+    {{else}}
+
+        {{#if products.length}}
+
+            {{#each products}}
+                <article>
+                    <h2>{{name}}</h2>
+                    <p>{{description}}</p>
+                    <a href="/products/{{id}}">Buy Now</a>
+                </article>
+            {{/each}}
+
+        {{else}}    
+            <p>All products are sold out!</p>
+        {{/if}}
+
+    {{/if}}
+</div>

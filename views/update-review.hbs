@@ -1,0 +1,33 @@
+<h1>Update Review</h1>
+
+{{#if errors.length}}
+<p>Couldn't update the review because;</p>
+<ul>
+    {{#each errors}}
+    <li>{{this}}</li>
+    {{/each}}
+</ul>
+{{/if}}
+
+<form action="/reviews/{{review.id}}/update" method="post">
+    <div>
+        name: <input type="text" name="name" value="{{review.name}}">
+    </div>
+    <div>
+        rating:
+            <select name="rating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+    </div>
+    <div>
+        description: <br>
+        <textarea name="description">{{review.description}}</textarea>
+    </div>
+    <div>
+        <input type="submit" value="update">
+    </div>
+</form>

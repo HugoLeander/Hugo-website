@@ -1,0 +1,12 @@
+{{#if faq}}
+    <h1>{{faq.question}}</h1>
+    <p>{{faq.answer}}</p>
+
+        <a href="/FAQ/{{faq.id}}/update">Update</a>
+        <a href="/FAQ/{{faq.id}}/delete">Delete</a>
+
+
+{{else}}
+    <h1>Not Found</h1>
+    <p>The faq does not exist.</p>
+{{/if}}

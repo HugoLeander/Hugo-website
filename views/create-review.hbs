@@ -1,0 +1,32 @@
+    <h1>Write a review</h1>
+
+    {{#if errors.length}}
+    <p>Couldn't create the review because:</p>
+    <ul>
+        {{#each errors}}
+        <li>{{this}}</li>
+        {{/each}}
+    </ul>
+    {{/if}}
+
+    <form action="/reviews/create" method="post">
+        <div>
+            Your name: <input type="text" name="name" value="{{name}}">
+        </div>
+        <div>
+            Rating: 
+            <select name="rating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+        <div>
+            Description: <input type="textarea" name="description" value="{{description}}">
+        </div>
+        <div>
+            <input type="submit" value="Post review">
+        </div>
+    </form>

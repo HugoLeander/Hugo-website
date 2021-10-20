@@ -1,0 +1,14 @@
+{{#if review}}
+    <h1>{{review.name}}</h1>
+    <h2>Rating: {{review.rating}}</h2>
+    <p>Message: {{review.description}}</p>
+
+
+        <a href="/reviews/{{review.id}}/update">Update</a>
+        <a href="/reviews/{{review.id}}/delete">Delete</a>
+
+
+{{else}}
+    <h1>Not Found</h1>
+    <p>The review does not exist.</p>
+{{/if}}
