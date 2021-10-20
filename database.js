@@ -47,8 +47,8 @@ exports.createUser = function(username, password, callback){
 exports.getAllproducts = function(callback){
     const query = "SELECT * FROM products"
 
-    db.all(query,function(error,products){
-        callback(error,products)
+    db.all(query,function(error, products){
+        callback(error, products)
     })
 }
 
@@ -67,7 +67,7 @@ exports.getProductById = function(id, callback){
     const query = "SELECT * FROM products WHERE id = ? LIMIT 1"
 	const values = [id]
 
-    db.get(query, values, function(error,product){
+    db.get(query, values, function(error, product){
         callback(error, product)
     })
 }
