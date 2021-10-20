@@ -1,7 +1,7 @@
 <div class="global">
     <h1> FIFA COINS! </h1>
 
-    {{#if session.isLoggedIn)}}}
+    {{#if session.isLoggedIn}}
         <a class="add" href="/products/create">Add new Product</a>
     {{/if}}
 
@@ -11,16 +11,16 @@
 
         {{#if products.length}}
 
-            {{#each products}}
-                <article>
-                    <h2>{{name}}</h2>
-                    <p>{{description}}</p>
-                    <a href="/products/{{id}}">Buy Now</a>
-                </article>
-            {{/each}}
+        {{#each products}}
+            <article>
+                <h2>{{name}}</h2>
+                <p>{{description}}</p>
+                <a href="/products/{{id}}">Buy Now</a>
+            </article>
+        {{/each}}
 
-        {{else}}    
-            <p>All products are sold out!</p>
+        {{else}}
+        <p>All products are sold out!</p>
         {{/if}}
 
     {{/if}}

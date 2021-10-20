@@ -151,10 +151,10 @@ router.post('/:id/delete', function(request, response){
 	
 	const id = request.params.id
     const errors = []
-    /*
+    
     if(!request.session.isLoggedIn){
         errors.push("Not logged in")
-    }*/
+    }
     if(errors.length == 0){
 	    db.deleteProductById(id, function(error){
 		    if(error){

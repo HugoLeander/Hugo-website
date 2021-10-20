@@ -151,11 +151,10 @@ router.post('/:id/delete', function(request, response){
 	
 	const id = request.params.id
 	const errors=[];
-    /*
+    
 	if(!request.session.isLoggedIn){
 		errors.push("You are not logged in.")
 	}
-    */
 	
 	if(errors.length == 0){		
 		db.deleteReviewById(id, function(error){

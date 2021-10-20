@@ -4,7 +4,7 @@
 <p>Couldn't update the product because;</p>
 <ul>
     {{#each errors}}
-    <li>{{this}}</li>
+        <li>{{this}}</li>
     {{/each}}
 </ul>
 {{/if}}
@@ -15,7 +15,7 @@
     </div>
     <div>
         Description: <br>
-        <textarea name="description">{{product.description}}</textarea>
+        <textarea name="description" class="products-textarea">{{product.description}}</textarea>
     </div>
     <div>
         <input type="submit" value="update">

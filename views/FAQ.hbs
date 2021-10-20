@@ -1,8 +1,8 @@
 <div class="global">
     <h1> FAQ </h1>
-
+    {{#if session.isLoggedIn}}
         <a class="add" href="/FAQ/create">Add new Question</a>
-
+    {{/if}}
     {{#if hasDatabaseError}}
         <p>Could not find the FAQ's right now, please try agian later</p>
     {{else}}
@@ -13,7 +13,7 @@
                 <article>
                     <h2>{{question}}</h2>
                     <p>{{answer}}</p>
-                    <a href="/FAQ/{{id}}">Edit</a>
+                    <a href="/FAQ/{{id}}">Read more</a>
                 </article>
             {{/each}}
 

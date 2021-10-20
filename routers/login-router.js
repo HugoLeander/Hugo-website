@@ -1,6 +1,5 @@
 const express = require('express')
 const validators = require('../validations.js')
-const { response } = require('express')
 const bcrypt = require('bcryptjs');
 const db = require('../database.js');
 const { route } = require('./product-router.js');
@@ -11,21 +10,20 @@ const ADMIN_USERNAME = 'Hugo'
 const ADMIN_PASSWORD = 'abc123'
 
 
-router.get('/', function (request, response) {
+router.get('/login', function (request, response) {
 	response.render('login.hbs')
 })
 
-router.post('/', function (request, response) {
+router.post('/login', function (request, response) {
 
 	const username = request.body.username
 	const password = request.body.password
 
 	const errors = []
-	//TODO: dont use hardcoded values
 
 	if (username == ADMIN_USERNAME && password == ADMIN_PASSWORD) {
 		request.session.isLoggedIn = true
-		response.redirect('/products')
+		response.redirect('/')
 	} else {
 
 		if (username != ADMIN_USERNAME) {
