@@ -1,3 +1,7 @@
+@media(max-width: 400px){
+
+}
+
 main{
     padding-right: 50px;
     padding-left: 50px;
@@ -16,22 +20,15 @@ body{
   color: white;
 }
 select{
-  background-color: #4F82AC;
   width: 173px;
 }
-textarea{
-  background-color: #4F82AC;
-  color:white;
-  height: 60px;
-}
-.review-textarea{
-  width: 220px;
-}
-.faq-textarea{
-  width: 245px;
-}
-.products-textarea{
-  width: 215px;
+
+.error-list li{
+  content: "/a";
+  white-space: pre;
+  margin-left: 25px;
+  padding-top: 5px;
+  display: block;
 }
 footer{
     padding: 3px;
@@ -77,20 +74,19 @@ h1{
     margin: 0px;
 }
 
-ul{
+nav ul{
     background-color:#2d373c;
     padding: 5px;
     padding-right: 50px;
     margin: 0;
-    /*text-align: center; */
 }
-ul li{
+nav ul li{
     list-style-type: none;
     margin-left: 20px;
     margin-right: 20px;
     display: inline-block;
 }
-ul li a{
+nav ul li a{
     padding-left: 20px;
     position: relative;
     display: inline-block;
@@ -107,7 +103,7 @@ ul li a{
     transition: background-position 275ms ease;
     text-decoration: none;
 }
-ul li a:hover{
+nav ul li a:hover{
     background-position: 0 100%;
     color:#4F82AC;
 }
@@ -169,6 +165,10 @@ td{
     list-style-type: none;
 }
 
+.swish{
+  padding-top: 15px;
+}
+
 .about{
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -220,16 +220,20 @@ td{
 }
 
 .error-center{
+  margin-top: auto;
+  margin-bottom: 20px;
   text-align: center;
   font-size: 20px;
   color: red;
+  list-style-type: none;
 }
-.error-center ul{
-  padding: 0%;
+.error-center li{
+  list-style-type: none;
 }
 
 
 /*LOGIN FORM*/
+
 
 @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
 *{
@@ -237,13 +241,13 @@ td{
   padding: 0;
   font-family: 'Poppins',sans-serif;
 }
-
+/*
 .login-form{
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  width: 370px;
+  width: auto;
   height: auto;
   background: none;
   padding: 0 35px 0;
@@ -252,6 +256,19 @@ td{
   border-radius: 5px;
   box-shadow: none;
 }
+*/
+
+.login-div{
+  display: block;
+  text-align: center;
+}
+.login-form{
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
 .text{
   text-align: center;
   font-size: 30px;

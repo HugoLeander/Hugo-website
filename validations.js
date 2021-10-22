@@ -9,8 +9,7 @@ const ADMIN_PASSWORD = 'abc123'
 const MIN_NAME_LENGTH = 3
 const MIN_DESCRIPTION_LENGTH = 5
 
-const MIN_USERNAME_LENGTH = 4
-const MIN_PASSWORD_LENGTH = 6
+
 
 exports.getValidationErrorsForProduct = function(name, description){
 
@@ -32,11 +31,11 @@ exports.getValidationErrorsForLogin = function(username, password) {
 	const loginErrors = []
 
 	if (username != ADMIN_USERNAME) {
-		loginErrors.push("The username does not exists")
+		loginErrors.push("Wrong username or password")
 	}
 
 	if (password != ADMIN_PASSWORD) {
-		loginErrors.push("The password is wrong")
+		loginErrors.push("Wrong username or password")
 	}
 
 	return loginErrors

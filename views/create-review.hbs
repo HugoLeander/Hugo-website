@@ -2,29 +2,31 @@
 
     {{#if errors.length}}
     <p>Couldn't create the review because:</p>
-    <ul>
+    <ul class="error-list">
         {{#each errors}}
-        <li>{{this}}</li>
+            <li>{{this}}</li>
         {{/each}}
     </ul>
     {{/if}}
 
     <form action="/reviews/create" method="post">
+        <input type="hidden" name="_csrf" value={{csrfToken}}>
         <div>
             Your name: <input type="text" name="name" value="{{name}}">
         </div>
         <div>
             Rating: 
             <select name="rating">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
+                <option value="Very Good">Very Good</option>
+                <option value="Good">Good</option>
+                <option value="OK" selected>OK</option>
+                <option value="Bad">Bad</option>
+                <option value="Really Bad">Really Bad</option>
             </select>
         </div>
         <div>
-            Description: <input type="textarea" name="description" value="{{description}}">
+            Description: <br>
+            <textarea name="description" value="{{description}}" rows="5" cols="30"> </textarea>
         </div>
         <div>
             <input type="submit" value="Post review">

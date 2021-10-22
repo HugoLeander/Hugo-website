@@ -2,7 +2,7 @@
 
 {{#if errors.length}}
 <p>Couldn't update the review because;</p>
-<ul>
+<ul class="error-list">
     {{#each errors}}
     <li>{{this}}</li>
     {{/each}}
@@ -10,22 +10,23 @@
 {{/if}}
 
 <form action="/reviews/{{review.id}}/update" method="post">
+    <input type="hidden" name="_csrf" value={{csrfToken}}>
     <div>
         name: <input type="text" name="name" value="{{review.name}}">
     </div>
     <div>
         rating:
             <select name="rating">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
+                <option value="Very Good">Very Good</option>
+                <option value="Good">Good</option>
+                <option value="OK" selected>OK</option>
+                <option value="Bad">Bad</option>
+                <option value="Really Bad">Really Bad</option>
             </select>
     </div>
     <div>
         description: <br>
-        <textarea name="description" class="review-textarea">{{review.description}}</textarea>
+        <textarea name="description" class="review-textarea" rows="5" cols="30">{{review.description}}</textarea>
     </div>
     <div>
         <input type="submit" value="update">

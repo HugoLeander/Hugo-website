@@ -1,6 +1,11 @@
 {{#if product}}
     <h1>{{product.name}}</h1>
     <p>{{product.description}}</p>
+    <div class="swish">
+        <p>Please start your Swish app on your phone and send the amount of $ this product cost.</p>
+        <p>Send the money and make sure you write your name in the message.</p>
+        <p>Send money to: 076-XXX XX XX</p>
+    </div>
 
     {{#if session.isLoggedIn}}
         <a href="/products/{{product.id}}/update">Update</a>

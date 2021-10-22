@@ -3,31 +3,39 @@ const validators = require('../validations.js')
 const db = require('../database.js')
 
 const router = express.Router()
+var csrf = require('csurf')
+var csrfProtection = csrf({ cookie: true})
 
-router.get('/', function(request, response){
+
+router.get('/', csrfProtection, function(request, response){
     db.getAllFAQs(function(error, faqs){
         if(error){
             const model = {
                 hasDatabaseError: true,
-                faqs: []
+                faqs: [],
+                csrfToken: request.csrfToken()
             }
             response.render('FAQ.hbs', model)
         }
         else{
             const model = {
                 hasDatabaseError: false,
-                faqs
+                faqs,
+                csrfToken: request.csrfToken()
             }
             response.render('FAQ.hbs', model)
         }
     })
 })
 
-router.get('/create', function(request, response){
-    response.render('create-FAQ.hbs')
+router.get('/create', csrfProtection, function(request, response){
+    const model = {
+        csrfToken: request.csrfToken()
+    }
+    response.render('create-FAQ.hbs', model)
 })
 
-router.post('/create', function(request, response){
+router.post('/create', csrfProtection, function(request, response){
 
     const question = request.body.question
     const answer = request.body.answer
@@ -44,7 +52,8 @@ router.post('/create', function(request, response){
                 const model = {
                     errors,
                     question,
-                    answer
+                    answer,
+                    csrfToken: request.csrfToken()
                 }
                 response.render('create-FAQ.hbs', model)
             }else{
@@ -56,7 +65,8 @@ router.post('/create', function(request, response){
         const model = {
             errors,
             question,
-            answer
+            answer,
+            csrfToken: request.csrfToken()
         }
         response.render('create-FAQ.hbs', model)
     }
@@ -74,20 +84,21 @@ router.get('/:id', function(request, response){
     })
 })
 
-router.get('/:id/update', function(request, response){
+router.get('/:id/update', csrfProtection, function(request, response){
     
     const id = request.params.id
 
     db.getFAQById(id, function(error, faq){
         const model = {
             error,
-            faq
+            faq,
+            csrfToken: request.csrfToken()
         }
         response.render('update-faq.hbs', model)
     })
 })
 
-router.post('/:id/update', function(request, response){
+router.post('/:id/update', csrfProtection, function(request, response){
 
     const id = request.params.id
     const question = request.body.question
@@ -106,7 +117,8 @@ router.post('/:id/update', function(request, response){
                 const model = {
                     errors,
                     question,
-                    answer
+                    answer,
+                    csrfToken: request.csrfToken()
                 }
                 response.render('update-faq.hbs', model)
             }else{
@@ -120,7 +132,8 @@ router.post('/:id/update', function(request, response){
                 id,
                 question,
                 answer
-            }
+            },
+            csrfToken: request.csrfToken()
         }
         response.render('update-faq.hbs', model)
     }

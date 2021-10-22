@@ -4,32 +4,40 @@ const db = require('../database.js')
 
 const router = express.Router()
 
+var csrf = require('csurf')
+var csrfProtection = csrf({ cookie: true})
 
 
 
-router.get('/', function(request, response){
+
+router.get('/', csrfProtection, function(request, response){
 	db.getAllReviews(function(error, reviews){
 		if(error){
 			const model = {
 				hasDatabaseError: true,
-				reviews: []
+				reviews: [],
+				csrfToken: request.csrfToken()
 			}
 			response.render('reviews.hbs', model)
 		}else{
 			const model = {
 				hasDatabaseError: false,
-				reviews
+				reviews,
+				csrfToken: request.csrfToken()
 			}
 			response.render('reviews.hbs', model)
 		}
 	})
 })
 
-router.get('/create',function(request, response){
-	response.render('create-review.hbs')
+router.get('/create', csrfProtection, function(request, response){
+	const model = {
+		csrfToken: request.csrfToken()
+	}
+	response.render('create-review.hbs', model)
 })
 
-router.post('/create', function(request, response){
+router.post('/create', csrfProtection, function(request, response){
 
 	const name = request.body.name
 	const rating = request.body.rating
@@ -46,7 +54,8 @@ router.post('/create', function(request, response){
 					errors,
 					name,
 					rating,
-					description
+					description,
+					csrfToken: request.csrfToken()
 				}
 				response.render('create-review.hbs', model)
 			}else{
@@ -59,7 +68,8 @@ router.post('/create', function(request, response){
 			errors,
 			name,
 			rating,
-			description
+			description,
+			csrfToken: request.csrfToken()
 		}
 		response.render('create-review.hbs', model)
 	}
@@ -78,20 +88,21 @@ router.get('/:id', function(request, response){
 	})
 })
 
-router.get('/:id/update', function(request, response){
+router.get('/:id/update', csrfProtection, function(request, response){
     
     const id = request.params.id
 
     db.getReviewById(id, function(error, review){
         const model = {
             error,
-            review
+            review,
+			csrfToken: request.csrfToken()
         }
         response.render('update-review.hbs', model)
     })
 })
 
-router.post('/:id/update', function(request, response){
+router.post('/:id/update', csrfProtection, function(request, response){
 
     const id = request.params.id
     const name = request.body.name
@@ -112,7 +123,8 @@ router.post('/:id/update', function(request, response){
                     errors,
                     name,
                     rating,
-                    description
+                    description,
+					csrfToken: request.csrfToken()
                 }
                 response.render('update-review.hbs', model)
             }else{
@@ -126,7 +138,8 @@ router.post('/:id/update', function(request, response){
             review: {
             name,
             rating,
-            description
+            description,
+			csrfToken: request.csrfToken()
             }
         }
         response.render('update-review.hbs', model)

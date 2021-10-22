@@ -2,7 +2,7 @@
 
 {{#if errors.length}}
 <p>Couldn't update the question because;</p>
-<ul>
+<ul class="error-list">
     {{#each errors}}
     <li>{{this}}</li>
     {{/each}}
@@ -10,12 +10,13 @@
 {{/if}}
 
 <form action="/FAQ/{{faq.id}}/update" method="post">
+    <input type="hidden" name="_csrf" value={{csrfToken}}>
     <div>
         Question: <input type="text" name="question" value="{{faq.question}}">
     </div>
     <div>
         Answer: <br>
-        <textarea name="answer" class="faq-textarea">{{faq.answer}}</textarea>
+        <textarea name="answer" class="faq-textarea" rows="5" cols="30">{{faq.answer}}</textarea>
     </div>
     <div>
         <input type="submit" value="update">

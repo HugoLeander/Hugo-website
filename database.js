@@ -1,6 +1,8 @@
 const sqlite3 = require('sqlite3')
 const db = new sqlite3.Database('C:\Users\hugol\onedrive\programmering\web\project\hugo-leander.db')
 
+
+
 db.run(`
 	CREATE TABLE IF NOT EXISTS products (
 		id  INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -34,19 +36,8 @@ db.run(`
 	)
 `)
 
-exports.createUser = function(username, password, callback){
-
-    const query = "INSERT INTO users (username, password) VALUES (?, ?)"
-    const values = [username, password]
-
-    db.run(query, values, function(error){
-        callback(error, this.lastID)
-    })
-}
-
 exports.getAllproducts = function(callback){
     const query = "SELECT * FROM products"
-
     db.all(query,function(error, products){
         callback(error, products)
     })

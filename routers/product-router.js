@@ -1,36 +1,44 @@
 const express = require('express')
 const validators = require('../validations.js')
 const db = require('../database.js')
-
-
-
-
 const router = express.Router()
 
-router.get('/',function(request,response){
+var csrf = require('csurf')
+var csrfProtection = csrf({ cookie: true})
+
+
+
+
+
+router.get('/', csrfProtection, function(request,response){
     db.getAllproducts(function(error, products){
         if (error) {
 			const model = {
 				hasDatabaseError: true,
-				products: []
+				products: [],
+				csrfToken: request.csrfToken()
 			}
 			response.render('products.hbs', model)
 		}
 		else {
 			const model = {
 				hasDatabaseError: false,
-				products
+				products,
+				csrfToken: request.csrfToken()
 			}
 			response.render('products.hbs', model)
 		}
     })
 })
 
-router.get('/create', function(request,response){
-    response.render('create-product.hbs')
+router.get('/create', csrfProtection, function(request,response){
+	const model = {
+		csrfToken: request.csrfToken()
+	}
+    response.render('create-product.hbs', model)
 })
 
-router.post('/create', function(request,response){
+router.post('/create', csrfProtection, function(request,response){
 
     const name = request.body.name
 	const description = request.body.description
@@ -49,9 +57,10 @@ router.post('/create', function(request,response){
                 const model = {
                     errors,
                     name,
-                    description
+                    description,
+					csrfToken: request.csrfToken()
                 }
-                response.render('create-product.hbs',model)
+                response.render('create-product.hbs', model)
             }else{
 
                 response.redirect('/products/'+productId)
@@ -62,9 +71,10 @@ router.post('/create', function(request,response){
         const model = {
             errors,
             name,
-            description
+            description,
+			csrfToken: request.csrfToken()
         }
-        response.render('create-product.hbs',model)
+        response.render('create-product.hbs', model)
     }
 })
 
@@ -81,20 +91,21 @@ router.get('/:id', function(request, response){
 
 })
 
-router.get('/:id/update', function(request, response){
+router.get('/:id/update', csrfProtection, function(request, response){
 	
 	const id = request.params.id
 	
 	db.getProductById(id, function(error, product){		
 		const model = {
             error,
-			product
+			product,
+			csrfToken: request.csrfToken()
 		}
 		response.render('update-product.hbs', model)	
 	})
 })
 
-router.post('/:id/update', function(request, response){
+router.post('/:id/update', csrfProtection, function(request, response){
 	
 	const id = request.params.id
 	const name = request.body.name
@@ -113,7 +124,8 @@ router.post('/:id/update', function(request, response){
                 const model = {
                     errors,
                     name,
-                    description
+                    description,
+					csrfToken: request.csrfToken()
                 }
                 response.render('update-product.hbs', model)
             }else{
@@ -126,7 +138,8 @@ router.post('/:id/update', function(request, response){
 			product: {
 				id,
 				name,
-				description
+				description,
+				csrfToken: request.csrfToken()
 			}
 		}
 		response.render('update-product.hbs', model)	

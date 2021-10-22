@@ -9,9 +9,11 @@
 {{/if}}
 </div>
 
-<div class="login-form">
+<div class="login-div">
 
-    <form action="/auth" method="post">
+    <form class="login-form" action="/auth" method="post">
+    <label for=""></label>
+    <input type="hidden" name="_csrf" value={{csrfToken}}>
         <div class="field">
             <div class="fas fa-envelope"></div>
             <input type="text" placeholder="Username" name="username" required>
@@ -20,11 +22,7 @@
             <div class="fas fa-lock"></div>
             <input type="password" placeholder="Password" name="password" required>
         </div>
-        <button>LOGIN</button>    
-        <div class="link">
-            Not a member?
-            <a href="/sign-up">Sign up now</a>
-        </div>
+        <button>LOGIN</button>
     </form>
 </div>
 

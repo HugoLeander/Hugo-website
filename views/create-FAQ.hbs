@@ -2,7 +2,7 @@
 
 {{#if errors.length}}
     <p>Could not create a new question because:</p>
-    <ul>
+    <ul class="error-list">
         {{#each errors}}
             <li>{{this}}</li>
         {{/each}}
@@ -10,12 +10,13 @@
 {{/if}}
 
 <form action="/FAQ/create" method="POST">
+    <input type="hidden" name="_csrf" value={{csrfToken}}>
     <div>
         question: <input type="text" name="question" value="{{question}}">
     </div>
     <div>
         answer: <br>
-        <textarea name="answer">{{answer}}</textarea>
+        <textarea name="answer" rows="5" cols="30">{{answer}}</textarea>
     </div>
     <div>
         <input type="submit" value="Create">
