@@ -1,38 +1,36 @@
 const sqlite3 = require('sqlite3')
-const db = new sqlite3.Database('C:\Users\hugol\onedrive\programmering\web\project\hugo-leander.db')
-
-
+const db = new sqlite3.Database('hugo-leander.db')
 
 db.run(`
 	CREATE TABLE IF NOT EXISTS products (
 		id  INTEGER PRIMARY KEY AUTOINCREMENT,
-		name TEXT,
-		description TEXT
+		name TEXT NOT NULL,
+		description TEXT NOT NULL
 	)
 `)
 
 db.run(`
 	CREATE TABLE IF NOT EXISTS reviews(
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
-		name TEXT,
-		rating TEXT,
-		description TEXT
+		name TEXT NOT NULL,
+		rating TEXT NOT NULL,
+		description TEXT NOT NULL
 	)
 `)
 
 db.run(`
 	CREATE TABLE IF NOT EXISTS faqs(
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
-		question TEXT,
-		answer TEXT
+		question TEXT NOT NULL,
+		answer TEXT NOT NULL
 	)
 `)
 
 db.run(`
 	CREATE TABLE IF NOT EXISTS users(
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
-		username TEXT UNIQUE,
-		password TEXT
+		username TEXT UNIQUE NOT NULL,
+		password TEXT NOT NULL
 	)
 `)
 

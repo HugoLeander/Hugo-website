@@ -1,19 +1,18 @@
 <div class="error-center">
-{{#if errors.length}}
+    {{#if errors.length}}
     <p>Could not login because:</p>
     <ul>
         {{#each errors}}
         <li>{{this}}</li>
         {{/each}}
     </ul>
-{{/if}}
+    {{/if}}
 </div>
 
 <div class="login-div">
-
-    <form class="login-form" action="/auth" method="post">
-    <label for=""></label>
-    <input type="hidden" name="_csrf" value={{csrfToken}}>
+    <form class="login-form" action="/login" method="post">
+        <label for=""></label>
+        <input type="hidden" name="_csrf" value={{csrfToken}}>
         <div class="field">
             <div class="fas fa-envelope"></div>
             <input type="text" placeholder="Username" name="username" required>
@@ -25,8 +24,3 @@
         <button>LOGIN</button>
     </form>
 </div>
-
-
-
-
-

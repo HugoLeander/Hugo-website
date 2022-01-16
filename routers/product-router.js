@@ -4,15 +4,11 @@ const db = require('../database.js')
 const router = express.Router()
 
 var csrf = require('csurf')
-var csrfProtection = csrf({ cookie: true})
+var csrfProtection = csrf({ cookie: true })
 
-
-
-
-
-router.get('/', csrfProtection, function(request,response){
-    db.getAllproducts(function(error, products){
-        if (error) {
+router.get('/', csrfProtection, function (request, response) {
+	db.getAllproducts(function (error, products) {
+		if (error) {
 			const model = {
 				hasDatabaseError: true,
 				products: [],
@@ -28,19 +24,19 @@ router.get('/', csrfProtection, function(request,response){
 			}
 			response.render('products.hbs', model)
 		}
-    })
+	})
 })
 
-router.get('/create', csrfProtection, function(request,response){
+router.get('/create', csrfProtection, function (request, response) {
 	const model = {
 		csrfToken: request.csrfToken()
 	}
-    response.render('create-product.hbs', model)
+	response.render('create-product.hbs', model)
 })
 
-router.post('/create', csrfProtection, function(request,response){
+router.post('/create', csrfProtection, function (request, response) {
 
-    const name = request.body.name
+	const name = request.body.name
 	const description = request.body.description
 
 	const errors = validators.getValidationErrorsForProduct(name, description)
@@ -50,89 +46,89 @@ router.post('/create', csrfProtection, function(request,response){
 	}
 
 	if (errors.length == 0) {
-        db.createProduct(name, description, function(error, productId){
-            if(error){
+		db.createProduct(name, description, function (error, productId) {
+			if (error) {
 
-                errors.push("Internal server error")
-                const model = {
-                    errors,
-                    name,
-                    description,
+				errors.push("Internal server error")
+				const model = {
+					errors,
+					name,
+					description,
 					csrfToken: request.csrfToken()
-                }
-                response.render('create-product.hbs', model)
-            }else{
+				}
+				response.render('create-product.hbs', model)
+			} else {
 
-                response.redirect('/products/'+productId)
-            }
-        })
+				response.redirect('/products/' + productId)
+			}
+		})
 
-    }else{
-        const model = {
-            errors,
-            name,
-            description,
-			csrfToken: request.csrfToken()
-        }
-        response.render('create-product.hbs', model)
-    }
-})
-
-router.get('/:id', function(request, response){
-    const id = request.params.id
-
-    db.getProductById(id,function(error, product){
-        const model = {
-			error,
-            product
-        }
-        response.render('product.hbs', model)
-    })
-
-})
-
-router.get('/:id/update', csrfProtection, function(request, response){
-	
-	const id = request.params.id
-	
-	db.getProductById(id, function(error, product){		
+	} else {
 		const model = {
-            error,
+			errors,
+			name,
+			description,
+			csrfToken: request.csrfToken()
+		}
+		response.render('create-product.hbs', model)
+	}
+})
+
+router.get('/:id', function (request, response) {
+	const id = request.params.id
+
+	db.getProductById(id, function (error, product) {
+		const model = {
+			error,
+			product
+		}
+		response.render('product.hbs', model)
+	})
+
+})
+
+router.get('/:id/update', csrfProtection, function (request, response) {
+
+	const id = request.params.id
+
+	db.getProductById(id, function (error, product) {
+		const model = {
+			error,
 			product,
 			csrfToken: request.csrfToken()
 		}
-		response.render('update-product.hbs', model)	
+		response.render('update-product.hbs', model)
 	})
 })
 
-router.post('/:id/update', csrfProtection, function(request, response){
-	
+router.post('/:id/update', csrfProtection, function (request, response) {
+
 	const id = request.params.id
 	const name = request.body.name
 	const description = request.body.description
-	
+
 	const errors = validators.getValidationErrorsForProduct(name, description)
-	
-	if(!request.session.isLoggedIn){
+
+	if (!request.session.isLoggedIn) {
 		errors.push("Not logged in.")
 	}
-	if(errors.length == 0){
-		
-		db.updateProductById(id, name, description, function(error){
-			if(error){
-                errors.push("Internal server error")
-                const model = {
-                    errors,
-                    name,
-                    description,
+	if (errors.length == 0) {
+
+		db.updateProductById(id, name, description, function (error) {
+			if (error) {
+				errors.push("Internal server error")
+				const model = {
+					errors,
+					name,
+					description,
 					csrfToken: request.csrfToken()
-                }
-                response.render('update-product.hbs', model)
-            }else{
-                response.redirect('/products/'+id)
-            }
-		})	
-	}else{	
+				}
+				response.render('update-product.hbs', model)
+			} else {
+				response.redirect('/products/' + id)
+			}
+		})
+	} else {
 		const model = {
 			errors,
 			product: {
@@ -142,48 +138,48 @@ router.post('/:id/update', csrfProtection, function(request, response){
 				csrfToken: request.csrfToken()
 			}
 		}
-		response.render('update-product.hbs', model)	
+		response.render('update-product.hbs', model)
 	}
-	
+
 })
 
-router.get('/:id/delete', function(request, response){
-	
+router.get('/:id/delete', function (request, response) {
+
 	const id = request.params.id
-	
-	db.getProductById(id, function(error, product){
+
+	db.getProductById(id, function (error, product) {
 		const model = {
-            error,
+			error,
 			product
 		}
 		response.render('delete-product.hbs', model)
 	})
 })
 
-router.post('/:id/delete', function(request, response){
-	
-	const id = request.params.id
-    const errors = []
-    
-    if(!request.session.isLoggedIn){
-        errors.push("Not logged in")
-    }
-    if(errors.length == 0){
-	    db.deleteProductById(id, function(error){
-		    if(error){
-                errors.push("Internal server error")
+router.post('/:id/delete', function (request, response) {
 
-                const model = {
-                    errors,
+	const id = request.params.id
+	const errors = []
+
+	if (!request.session.isLoggedIn) {
+		errors.push("Not logged in")
+	}
+	if (errors.length == 0) {
+		db.deleteProductById(id, function (error) {
+			if (error) {
+				errors.push("Internal server error")
+
+				const model = {
+					errors,
 					id
-                }
-                response.render('delete-product.hbs', model) // kanske lägga till model
-            }else{
-		
-		    response.redirect('/products')
-            }
-	    })
-    }else{
+				}
+				response.render('delete-product.hbs', model) // kanske lägga till model
+			} else {
+
+				response.redirect('/products')
+			}
+		})
+	} else {
 		const model = {
 			errors,
 		}

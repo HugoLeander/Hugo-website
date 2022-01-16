@@ -1,10 +1,10 @@
 <h1>Update FAQ</h1>
 
 {{#if errors.length}}
-<p>Couldn't update the question because;</p>
+<p>Couldn't update the question because:</p>
 <ul class="error-list">
     {{#each errors}}
-    <li>{{this}}</li>
+        <li>{{this}}</li>
     {{/each}}
 </ul>
 {{/if}}
@@ -15,7 +15,7 @@
         Question: <input type="text" name="question" value="{{faq.question}}">
     </div>
     <div>
-        Answer: <br>
+        <h4>Answer: </h4>
         <textarea name="answer" class="faq-textarea" rows="5" cols="30">{{faq.answer}}</textarea>
     </div>
     <div>

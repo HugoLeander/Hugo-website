@@ -1,21 +1,21 @@
 <h1>Add new FAQ</h1>
 
 {{#if errors.length}}
-    <p>Could not create a new question because:</p>
-    <ul class="error-list">
-        {{#each errors}}
-            <li>{{this}}</li>
-        {{/each}}
-    </ul>
+<p>Could not create a new question because:</p>
+<ul class="error-list">
+    {{#each errors}}
+    <li>{{this}}</li>
+    {{/each}}
+</ul>
 {{/if}}
 
 <form action="/FAQ/create" method="POST">
     <input type="hidden" name="_csrf" value={{csrfToken}}>
     <div>
-        question: <input type="text" name="question" value="{{question}}">
+        Question: <input type="text" name="question" value="{{question}}">
     </div>
     <div>
-        answer: <br>
+        <h4>Answer:</h4> 
         <textarea name="answer" rows="5" cols="30">{{answer}}</textarea>
     </div>
     <div>

@@ -1,5 +1,6 @@
 <h1>Delete product</h1>
 <p>Do you really want to delete the product with the name {{product.name}}?</p>
 <form action="/products/{{product.id}}/delete" method="post">
+	<input type="hidden" name="_csrf" value={{csrfToken}}>
 	<input type="submit" value="Delete it!">
 </form>

@@ -1,10 +1,10 @@
 <h1>Update Review</h1>
 
 {{#if errors.length}}
-<p>Couldn't update the review because;</p>
+<p>Couldn't update the review because:</p>
 <ul class="error-list">
     {{#each errors}}
-    <li>{{this}}</li>
+        <li>{{this}}</li>
     {{/each}}
 </ul>
 {{/if}}
@@ -16,16 +16,16 @@
     </div>
     <div>
         rating:
-            <select name="rating">
-                <option value="Very Good">Very Good</option>
-                <option value="Good">Good</option>
-                <option value="OK" selected>OK</option>
-                <option value="Bad">Bad</option>
-                <option value="Really Bad">Really Bad</option>
-            </select>
+        <select name="rating">
+            <option value="Very Good">Very Good</option>
+            <option value="Good">Good</option>
+            <option value="OK" selected>OK</option>
+            <option value="Bad">Bad</option>
+            <option value="Really Bad">Really Bad</option>
+        </select>
     </div>
     <div>
-        description: <br>
+        <h4>description: </h4>
         <textarea name="description" class="review-textarea" rows="5" cols="30">{{review.description}}</textarea>
     </div>
     <div>
